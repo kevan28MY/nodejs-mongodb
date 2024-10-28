@@ -1,5 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const DB_URL = require("./config.js");
+
 const Product = require("./models/product.model.js");
 const productRoute = require("./routes/product.route.js");
 const app = express();
@@ -14,9 +16,7 @@ app.get("/", (req, res) => {
 });
 
 mongoose
-  .connect(
-    "mongodb+srv://kevin28:melgarejo@backenddb.sidhy.mongodb.net/Node-API?retryWrites=true&w=majority&appName=BackendDB"
-  )
+  .connect(DB_URL)
   .then(() => {
     console.log("connected to mongodb");
     app.listen(3000, () => {
@@ -24,5 +24,5 @@ mongoose
     });
   })
   .catch(() => {
-    console.log("connection dailed!");
+    console.log("connection failed!");
   });
